@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export function DetailPage() {
+export const DetailPage = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -13,10 +13,11 @@ export function DetailPage() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: '100%',
     width: '100%',
     justifyContent: 'center',

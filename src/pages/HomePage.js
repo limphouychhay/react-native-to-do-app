@@ -6,9 +6,10 @@ import {
   TextInput,
   Button,
   FlatList,
+  Pressable,
 } from 'react-native';
 
-export function HomePage() {
+export const HomePage = ({navigation}) => {
   const mockList = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -26,9 +27,11 @@ export function HomePage() {
 
   const renderItem = ({item}) => (
     <View style={styles.listContainer}>
-      <View style={styles.listItem}>
-        <Text>{item.title}</Text>
-      </View>
+      <Pressable onPress={() => navigation.navigate('Detail')}>
+        <View style={styles.listItem}>
+          <Text>{item.title}</Text>
+        </View>
+      </Pressable>
     </View>
   );
 
@@ -53,12 +56,14 @@ export function HomePage() {
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: '100%',
     width: '100%',
+    paddingVertical: 10,
   },
   row: {
     flexDirection: 'row',

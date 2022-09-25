@@ -1,28 +1,18 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Platform,
-  StatusBar,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-import {HomePage} from './pages/Page';
+import RootNavigation from './navigation/RootNavigation';
 
 export default function App() {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView style={styles.safeArea}>
-        <HomePage />
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+    <View style={styles.container}>
+      <RootNavigation />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    felx: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  container: {
+    flex: 1,
   },
 });
