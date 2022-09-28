@@ -1,56 +1,35 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Button,
-  FlatList,
-  Pressable,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, FlatList} from 'react-native';
+import uuid from 'react-native-uuid';
+
+import {CustomTextInput, ListItem} from '../components/Component';
 
 export const HomePage = ({navigation}) => {
-  const mockList = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-  ];
+  const [todoList, setTodoList] = useState([]);
+
+  function addHandler(item) {
+    setTodoList(currentItem => [...currentItem, {text: item, id: uuid.v4()}]);
+  }
+
+  function deleteHandler(id) {
+    setTodoList(currenItem => {
+      return currenItem.filter(item => item.id !== id);
+    });
+  }
 
   const renderItem = ({item}) => (
-    <View style={styles.listContainer}>
-      <Pressable onPress={() => navigation.navigate('Detail')}>
-        <View style={styles.listItem}>
-          <Text>{item.title}</Text>
-        </View>
-      </Pressable>
-    </View>
+    <ListItem
+      item={item}
+      deleteHandler={deleteHandler}
+      navigation={navigation}
+    />
   );
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Input To Do Here"
-          clearButtonMode="while-editing"
-          enablesReturnKeyAutomatically={true}
-          returnKeyType="done"
-        />
-        <View style={styles.buttonContainer}>
-          <Button title="Done" />
-        </View>
-      </View>
+      <CustomTextInput addHandler={addHandler} />
       <FlatList
-        data={mockList}
+        data={todoList}
         keyExtractor={item => item.id}
         renderItem={renderItem}
       />
@@ -64,30 +43,5 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     paddingVertical: 10,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-  },
-  textInput: {
-    flex: 1,
-    height: 50,
-    padding: 10,
-    marginLeft: 10,
-    borderWidth: 1,
-    borderRadius: 10,
-  },
-  buttonContainer: {
-    flex: 0.25,
-  },
-  listContainer: {
-    padding: 10,
-  },
-  listItem: {
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
   },
 });
