@@ -2,13 +2,15 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 export const DetailPage = ({navigation, route}) => {
+  const {item} = route.params;
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.textTitle}>Item Detail:</Text>
         <Text style={styles.textBody}>
-          ID: 123 {'\n'}
-          <Text>Todo: Testing</Text>
+          ID: {item.id} {'\n'}
+          <Text>Todo: {item.text}</Text>
         </Text>
       </View>
     </View>
